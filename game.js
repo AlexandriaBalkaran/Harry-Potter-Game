@@ -10,8 +10,6 @@ const images = document.getElementById("potter__image");
 let currentImageData = null;
 
 // Function to get random numbers
-// Rather than hardcoding the length, chatGPT suggested
-// we get the value from the api call
 function getRandomNumber(max) {
     const random = Math.floor(Math.random() * max);
 
@@ -43,7 +41,6 @@ async function getRandomCharacter() {
     try {
         const response = await getHarry();
 
-        // the value passed was gotten from the response length
         const randNum = getRandomNumber(response.length);
 
         const resRandom = response[randNum];
@@ -73,13 +70,13 @@ form.addEventListener("submit", async(e) => {
     e.preventDefault();
 
     // Clears previous error states
-    input.classList.remove("potter__error");
+    input.classList.remove("container__potter-button-error");
 
     const nameInput = e.target.character.value.trim().toLowerCase();
 
     // Validation for input
     if (nameInput === "") {
-        input.classList.add("potter__error");
+        input.classList.add("container__potter-button-error");
         return;
     }
 
