@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./game.js" defer></script>
+
+</head>
+<body>
+    <section>
+        <div class="title" >
+            <h1>Guess the Character Name</h1>
+            <h2>⚡ Harry Potter Edition ⚡</h2>
+        </div>
+        <div class="potter__div">
+            <img class="potter__image" id="potter__image" src="#" alt="random Harry Potter images">
+        </div>
+        <div class="potter__form">
+            <form class="potter" id="potter">
+                <label class="potter__label" id="potter__label">
+                    <input type="text" name="character" id="potter__input" class="potter__input" placeholder="Enter the Character's Name">
+                </label>
+                <div class="potter__button--flex">
+                    <button class="potter__button" id="potter__button" type="submit">SUBMIT</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
