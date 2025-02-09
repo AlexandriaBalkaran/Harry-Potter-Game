@@ -1,32 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/style.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./game.js" defer></script>
-
 </head>
 <body>
     <section class="container">
-        <div class="container__title" >
+        <div class="container__title">
             <h1 class="container__title-header">Guess the Character Name</h1>
             <h2 class="container__title-subheader">⚡ Harry Potter Edition ⚡</h2>
         </div>
+
         <div class="container__potter-div">
-            <img class="container__potter-image" id="potter__image" src="#" alt="random Harry Potter images">
+            <img
+            class="container__potter-image"
+            id="potter__image"
+            src="#"
+            alt="random Harry Potter images"
+            />
         </div>
+
         <div class="container__potter">
             <form class="container__potter-form" id="potter">
                 <label class="container__potter-label" id="potter__label">
-                    <input type="text" name="character" id="potter__input" class="container__potter-input" placeholder="Enter the Character's Name">
+                    <input
+                    type="text"
+                    name="character"
+                    id="potter__input"
+                    class="container__potter-input"
+                    placeholder="Enter the Character's Name"
+                    />
                 </label>
                 <div class="container__potter-button-box">
-                    <button class="container__potter-button" id="potter__button" type="submit">SUBMIT</button>
+                    <button
+                    class="container__potter-button"
+                    id="potter__button"
+                    type="submit"
+                    >
+                    SUBMIT
+                    </button>
+
+                    <div class="container__scores">
+                        SCORE: <span class="container__scores-result" id="container-scores-result"></span>
+                    </div>
                 </div>
             </form>
+            <button class="container__answer-button"
+                    id="container-answer-button">ANSWER
+                    <i class="container__answer-icon fa fa-eye" id="container-answer-icon"></i>
+                    <span class="container__answer-button-span-tooltiptext">Penalty: -2 points</span>
+            </button>
         </div>
     </section>
 </body>

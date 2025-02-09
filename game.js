@@ -9,6 +9,17 @@ const images = document.getElementById("potter__image");
 // stores displayed image data
 let currentImageData = null;
 
+// Keeps track of the user scores
+let count = 0;
+const scores = document.getElementById("container-scores-result");
+scores.textContent = count;
+
+// flag to track deduction status
+let deductionApplied = false;
+
+// Answer
+const answer = document.getElementById("container-answer-button");
+
 // Function to get random numbers
 function getRandomNumber(max) {
     const random = Math.floor(Math.random() * max);
@@ -16,7 +27,7 @@ function getRandomNumber(max) {
     return random;
 }
 
-// Function filters out empty images data
+// Function filters out empty images
 async function getHarry() {
     try {
         const response = await axios.get(BASE_URL);
@@ -55,15 +66,43 @@ async function getRandomCharacter() {
 
 // Function displays a random image
 async function randImg() {
-    const character = await getRandomCharacter();
+    try {
+        const character = await getRandomCharacter();
 
-    if (character) {
-        images.setAttribute("src", character.image);
-        currentImageData = character;
+        if (character) {
+            images.setAttribute("src", character.image);
+            currentImageData = character;
+        }
+    } catch (error) {
+        console.error("Error from randImag function: ",error)
     }
-
 }
 randImg();
+
+// View answer event listener
+answer.addEventListener("click", async(e) => {
+    if (currentImageData) {
+
+        // This applies the deduction only if it has not been applied
+        if (!deductionApplied) {
+            // Mark deduction
+            count -= 2;
+            scores.textContent = count;
+            deductionApplied = true;
+        }
+
+        const displayedImageName = currentImageData.name.trim();
+
+        if (answer.textContent.includes("ANSWER")) {
+            answer.innerHTML = `${displayedImageName} <i class="container__answer-icon fa fa-eye-slash" id="container-answer-icon"></i> <span class="container__answer-button-span-tooltiptext">Penalty: -2 points</span>`;
+        } else {
+            answer.innerHTML = 'ANSWER <i class="container__answer-icon fa fa-eye" id="container-answer-icon"></i> <span class="container__answer-button-span-tooltiptext">Penalty: -2 points</span>';
+        }
+
+    } else {
+        console.error("No image is currently displayed.");
+    }
+});
 
 // Event handler for the form submit button
 form.addEventListener("submit", async(e) => {
@@ -81,19 +120,27 @@ form.addEventListener("submit", async(e) => {
     }
 
     if (currentImageData) {
-    const displayedImageName = currentImageData.name.trim().toLowerCase();
+        const displayedImageName = currentImageData.name.trim().toLowerCase();
+    
+        if (displayedImageName === nameInput) {
 
-    if (displayedImageName === nameInput) {
-        alert("Good job!!!");
+            // Updates the users score
+            count += 5;
+            scores.textContent = count;
 
-        // calls the function again to display new image
-        randImg();
+            alert("Good job!!!");
 
-        // clears the input field
-        e.target.character.value = "";
-    } else {
-        alert("Retry");
-    }
+            // Resets the "Answer" button to its original state
+            answer.innerHTML = 'ANSWER <i class="container__answer-icon fa fa-eye" id="container-answer-icon"></i> <span class="container__answer-button-span-tooltiptext">Penalty: -2 points</span>';
+
+            // Displays new random image
+            randImg();
+
+            // clears the input field
+            e.target.character.value = "";
+        } else {
+            alert("Retry");
+        }
     } else {
         console.error("No image is currently displayed.");
     }
